@@ -1,0 +1,28 @@
+body {
+    background-color: #9bd8f0;
+}
+
+form {
+    background-color: #f7db90; 
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+}
+
+
+label, input[type="submit"] {
+    color: #080808;
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="submit"] {
+    color: #FFFFE0;
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}

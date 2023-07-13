@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="logincss.css">
+    <style>
+    body {
+        background-color: #9bd8f0;
+    }
+    
+    form {
+        background-color: #f7db90; 
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 300px;
+    }
+    
+    
+    label, input[type="submit"] {
+        color: #080808;
+        display: block;
+        margin-bottom: 10px;
+    }
+    
+    input[type="submit"] {
+        color: #FFFFE0;
+        padding: 5px 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    
+</style>
+</head>
+
+<body>
+    <h1>The Traveling Bears</h1>
+    <h2><i>Let us help you make all your travel buddy dreams come true!</i></h2>
+    <h3>Please login to find you future travel buddy!</h3>
+    {% if error_message %}
+    <p class="error">{{ error_message }}</p>
+{% endif %}
+<form name="LoginForm" onsubmit="return validateLoginForm()" method="post">
+    {% csrf_token %}
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+    <br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <br>
+    <input type="submit" value="Login">
+    <br>
+    <a href="{% url 'signup' %}">Sign Up</a>
+</form>
+
+
+    <script>
+
+   // Validate the login form before submission
+function validateLoginForm() {
+    var username = document.forms["LoginForm"]["username"].value;
+    var password = document.forms["LoginForm"]["password"].value;
+    
+    if (username === "") {
+        alert("Please enter your username.");
+        return false;
+    }
+    
+    if (password === "") {
+        alert("Please enter your password.");
+        return false;
+    }
+    
+    return true;
+}
+
+    </script>
+    </body>
+
+</html>

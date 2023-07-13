@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Feedback</title>
+  <link rel="stylesheet" type="text/css" href="feedbackCss.css">
+<style>body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+}
+
+h2 {
+  text-align: left;
+  color: #333;
+}
+
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 30%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+input[type="submit"] {
+  display: block;
+  width: 10%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background-color: #45a049;
+}</style>
+</head>
+<body>
+  <h2>Feedback</h2>
+  
+  <form id="feedbackForm" method="post">
+    {% csrf_token %}
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="message">Message:</label>
+    <textarea id="message" name="message" rows="5" required></textarea><br><br>
+
+    <input type="submit" value="Submit">
+  </form>
+  <form id="feedbackForm" method="post" action="{% url 'homePage' %}">
+   
+   
+    <input type="submit" value="Submit">
+  </form>
+
+<script>
+  // Submit the feedback form via AJAX
+  document.getElementById("feedbackForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent default form submission behavior
+
+    var formData = new FormData(this);
+    sendFeedback(formData);
+  });
+
+  function sendFeedback(formData) {
+    // Make an AJAX request to the server to submit the feedback
+
+    fetch('/submit_feedback', {
+      method: 'POST',
+      body: formData
+    })
+      .then(response => {
+        if (response.ok) {
+          alert("Feedback submitted successfully!");
+          clearForm();
+        } else {
+          alert("Failed to submit feedback. Please try again.");
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        alert("An error occurred while submitting feedback. Please try again.");
+      });
+  }
+
+  function clearForm() {
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("message").value = "";
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Matched Pairs</title>
+
+ 
+</head>
+<body>
+  <h2>MEET YOUR MATCHES!</h2>
+
+  <div id="pairsContainer"></div>
+</body>
+<script>
+  window.onload = function() {
+    fetchMatchedPairs();
+  };
+
+  function fetchMatchedPairs() {
+    fetch('/api/matchedPairs')
+      .then(response => response.json())
+      .then(data => displayMatchedPairs(data))
+      .catch(error => console.error(error));
+  }
+
+  function displayMatchedPairs(matchedPairs) {
+    var pairsContainer = document.getElementById("pairsContainer");
+    pairsContainer.innerHTML = "";
+
+    matchedPairs.forEach(pair => {
+      var pairElement = document.createElement("div");
+      pairElement.classList.add("pair");
+
+      var user1Element = document.createElement("div");
+      user1Element.innerHTML = pair.user1Name;
+      pairElement.appendChild(user1Element);
+
+      var user2Element = document.createElement("div");
+      user2Element.innerHTML = pair.user2Name;
+      pairElement.appendChild(user2Element);
+
+      // Add View Profile button
+      var viewProfileButton = document.createElement("button");
+      viewProfileButton.innerHTML = "View Profile";
+      viewProfileButton.addEventListener("click", function() {
+        // Implement logic to view the user's profile
+        viewUserProfile(pair.userId);
+      });
+      pairElement.appendChild(viewProfileButton);
+
+      
+      var messageButton = document.createElement("button");
+      messageButton.innerHTML = "Message";
+      messageButton.addEventListener("click", function() {
+        // Implement logic to open the message thread
+        openMessageThread(pair.userId);
+      });
+      pairElement.appendChild(messageButton);
+
+      pairsContainer.appendChild(pairElement);
+    });
+  }
+
+  function viewUserProfile(userId) {
+    console.log("Viewing profile of user with ID:", userId);
+  }
+
+  function openMessageThread(userId) {
+    console.log("Opening message thread with user ID:", userId);
+  }
+</script>
+
+</html>
